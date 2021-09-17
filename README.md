@@ -2,7 +2,7 @@
 
 [<img src="https://img.shields.io/badge/license-MIT-brightgreen?link=https://opensource.org/licenses/MIT">](https://opensource.org/licenses/MIT)
 
-<img src="" alt="Screenshot of Budget Tracker">
+<img src="./public/screenshot.PNG " alt="Screenshot of Budget Tracker">
 
 <br><br>
 
