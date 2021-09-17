@@ -44,5 +44,27 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="index.js"></script>
+
+<!-- Inserted Service Worker script -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+          .then(reg => {
+            console.log("We found your service worker file!", reg);
+          });
+      });
+    }
+  </script>
+
+<!-- Inserted IndexedDB script -->
+<script>
+  const request = window.indexedDB.open("transaction", 1);
+
+  request.onsuccess = event => {
+    console.log(request.result.name);
+  };
+
+</script>
 </body>
 </html>
