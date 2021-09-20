@@ -1,11 +1,13 @@
+// The code for db.js is from the Week 18 Student-Mini-Project
+
 let db;
 let budgetVersion;
 
-// Create a new db request for a "budget" database.
-const request = indexedDB.open('BudgetDB', 1 || 21);
+// Create a new db request for IndexedDB.
+const request = indexedDB.open("BudgetDB", 1 || 21);
 
 request.onupgradeneeded = function (e) {
-  console.log('Upgrade needed in IndexDB');
+  console.log("Upgrade needed in IndexDB");
 
   const { oldVersion } = e;
   const newVersion = e.newVersion || db.version;
@@ -15,51 +17,50 @@ request.onupgradeneeded = function (e) {
   db = e.target.result;
 
   if (db.objectStoreNames.length === 0) {
-    db.createObjectStore('BudgetStore', { autoIncrement: true });
+    db.createObjectStore("BudgetStore", { autoIncrement: true });
   }
 };
 
 request.onerror = function (e) {
-  console.log(`Woops! ${e.target.errorCode}`);
+  console.log(`Error ${e.target.errorCode}`);
 };
 
 function checkDatabase() {
-  console.log('check db invoked');
+  console.log("check db invoked");
 
-  // Open a transaction on your BudgetStore db
-  let transaction = db.transaction(['BudgetStore'], 'readwrite');
+  // Open Transaction
+  let transaction = db.transaction(["BudgetStore"], "readwrite");
 
-  // access your BudgetStore object
-  const store = transaction.objectStore('BudgetStore');
+  // Access IndexedDB
+  const store = transaction.objectStore("BudgetStore");
 
-  // Get all records from store and set to a variable
+  // Get All Records
   const getAll = store.getAll();
 
   // If the request was successful
   getAll.onsuccess = function () {
-    // If there are items in the store, we need to bulk add them when we are back online
+    // If there are items in IndexedDB, add to transactionDB when online
     if (getAll.result.length > 0) {
-      fetch('/api/transaction/bulk', {
-        method: 'POST',
+      fetch("/api/transaction/bulk", {
+        method: "POST",
         body: JSON.stringify(getAll.result),
         headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
         },
       })
         .then((response) => response.json())
         .then((res) => {
-          // If our returned response is not empty
+          // If returned response is not empty
           if (res.length !== 0) {
-            // Open another transaction to BudgetStore with the ability to read and write
-            transaction = db.transaction(['BudgetStore'], 'readwrite');
+            // Open another transaction to IndexedDB with the ability to read and write
+            transaction = db.transaction(["BudgetStore"], "readwrite");
 
-            // Assign the current store to a variable
-            const currentStore = transaction.objectStore('BudgetStore');
+            // Assign the current IndexedDB to a variable
+            const currentStore = transaction.objectStore("BudgetStore");
 
-            // Clear existing entries because our bulk add was successful
+            // Clear IndexedDB
             currentStore.clear();
-            console.log('Clearing store 🧹');
           }
         });
     }
@@ -67,27 +68,28 @@ function checkDatabase() {
 }
 
 request.onsuccess = function (e) {
-  console.log('success');
+  console.log("success");
   db = e.target.result;
 
-  // Check if app is online before reading from db
+  // Check if app is online before reading from IndexedDB
   if (navigator.onLine) {
-    console.log('Backend online! 🗄️');
+    console.log("Backend online! 🗄️");
     checkDatabase();
   }
 };
 
 const saveRecord = (record) => {
-  console.log('Save record invoked');
-  // Create a transaction on the BudgetStore db with readwrite access
-  const transaction = db.transaction(['BudgetStore'], 'readwrite');
+  console.log("Save record invoked");
 
-  // Access your BudgetStore object store
-  const store = transaction.objectStore('BudgetStore');
+  // Create a transaction in IndexedDB
+  const transaction = db.transaction(["BudgetStore"], "readwrite");
 
-  // Add record to your store with add method.
+  // Access IndexedDB
+  const store = transaction.objectStore("BudgetStore");
+
+  // Add record to IndexedDB
   store.add(record);
 };
 
-// Listen for app coming back online
-window.addEventListener('online', checkDatabase);
+// Listen for online access
+window.addEventListener("online", checkDatabase);

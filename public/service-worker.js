@@ -58,7 +58,6 @@ self.addEventListener("fetch", function(evt) {
     );
   });
 
-
 // activate
 self.addEventListener("activate", function(evt) {
   evt.waitUntil(
@@ -76,5 +75,3 @@ self.addEventListener("activate", function(evt) {
 
   self.clients.claim();
 });
-
-

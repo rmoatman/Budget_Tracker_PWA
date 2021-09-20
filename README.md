@@ -2,7 +2,7 @@
 
 [<img src="https://img.shields.io/badge/license-MIT-brightgreen?link=https://opensource.org/licenses/MIT">](https://opensource.org/licenses/MIT)
 
-<img src="./public/screenshot.PNG " alt="Screenshot of Budget Tracker">
+<img src="screenshot.PNG " alt="Screenshot of Budget Tracker">
 
 <br><br>
 
@@ -11,6 +11,8 @@ The budget tracker is deployed here:  https://warm-mesa-72432.herokuapp.com/
 ## Description
 
 This app is a Budget Tracker which will allow the user to add expenses and deposits to his budget with or without an internet connection.  If transactions are entered while offline, they will be added to the tracker and stored in the database.  This will allow the user's balance to be accurate when travelling.
+
+Starter code for this project was provided.
 <br><br>
 
 ## Table of Contents
