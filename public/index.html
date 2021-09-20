@@ -57,21 +57,7 @@
     }
   </script>
 
+<script src="/db.js"></script>
 <script src="index.js"></script>
 
-<!-- Inserted IndexedDB script
-<script>
-  const request = window.indexedDB.open("transaction", 1);
-
-  request.onsuccess = event => {
-    console.log(request.result.name);
-  };
-
-  request.onupgradeneeded = ({ target }) => {
-        const db = target.result;
-        const objectStore = db.createObjectStore("transaction");
-      };
-
-</script> -->
-</body>
 </html>
