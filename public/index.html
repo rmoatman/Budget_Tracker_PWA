@@ -43,7 +43,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script src="index.js"></script>
+
 
 <!-- Inserted Service Worker script -->
   <script>
@@ -57,7 +57,9 @@
     }
   </script>
 
-<!-- Inserted IndexedDB script -->
+<script src="index.js"></script>
+
+<!-- Inserted IndexedDB script
 <script>
   const request = window.indexedDB.open("transaction", 1);
 
@@ -65,6 +67,11 @@
     console.log(request.result.name);
   };
 
-</script>
+  request.onupgradeneeded = ({ target }) => {
+        const db = target.result;
+        const objectStore = db.createObjectStore("transaction");
+      };
+
+</script> -->
 </body>
 </html>
